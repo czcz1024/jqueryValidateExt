@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title></title>
+    <style>
+        .field-validation-error {
+            color: #f00;
+        }
+
+        .field-validation-valid {
+            display: none;
+        }
+
+        .input-validation-error {
+            border: 1px solid #f00;
+            background-color: #fee;
+        }
+
+        .validation-summary-errors {
+            font-weight: bold;
+            color: #f00;
+        }
+
+        .validation-summary-valid {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form action="#" method="post">
+        <div>
+            <label for="UserName">UserName</label>
+            <input data-val="true" data-val-required="UserName 字段是必需的。" id="UserName" name="UserName" type="text" value="" />
+            <span class="field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
+
+            <input type="submit" />
+        </div>
+    </form>
+    <script src="../lib/jquery-1.8.2.js"></script>
+    <script src="../lib/jquery.validate.js"></script>
+    <script src="../lib/jquery.validate.unobtrusive.js"></script>
+    <script src="../jquery.validate.extends.js"></script>
+    <script>
+        $(function () {
+            $("form").setNewValidateOption("errorPlacement", function (old) {
+                return function (err, ele) {
+                    old(err, ele);//保留原来设置
+
+                    //添加更多操作
+                    var container = err.data("unobtrusiveContainer");
+                    container.prepend("<span>add by ext </span>");
+                };
+            });
+        });
+    </script>
+</body>
+</html>
